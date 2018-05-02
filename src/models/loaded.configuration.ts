@@ -22,49 +22,49 @@ export class LoadedConfiguration {
 
     }
 
-    public getDbConfig(n: string) {
+    public dbConfig(n: string) {
 
 
 
     }
 
-    public getDbConfigListForKind(k: DbConfigurationKind | string) {
+    public dbConfigListForKind(k: DbConfigurationKind | string) {
 
 
 
     }
 
-    public getAPIConfig(n: string) {
+    public apiConfig(n: string) {
 
 
 
     }
 
-    public getAPIConfigListForKind(k: APIConfigurationKind | string) {
+    public apiConfigListForKind(k: APIConfigurationKind | string) {
 
 
 
     }
 
-    public getCommonConfig(n: string) {
+    public commonConfig(n: string) {
 
 
 
     }
 
-    public getCertificate(n: string) {
+    public secureCertificate(n: string) {
 
 
 
     }
 
-    public getKey(n: string) {
+    public secureKey(n: string) {
 
 
 
     }
 
-    public getServerConfig(s: string) {
+    public serverConfig(s: string) {
 
 
 
