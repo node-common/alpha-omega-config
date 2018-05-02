@@ -1,10 +1,78 @@
+import {Exception} from "ts-exceptions";
+import {ConfigParser} from "./helpers/config.parser";
+import {LoadedConfiguration} from "./models/loaded.configuration";
+
 export class Configuration {
 
-    private config: any = null;
+    private config: LoadedConfiguration = null;
 
     constructor(o: StartupOptions) {
 
+        this.set(o);
 
+    }
+
+    public get() : LoadedConfiguration {
+
+        return this.config;
+
+    }
+
+    public set(o: StartupOptions) {
+
+        const std = Configuration._defaultStartupConfiguration();
+
+        o = ConfigParser.mergeOptions(std, o);
+
+        try {
+
+            this.config = ConfigParser.fromOptions(o);
+
+        } catch (e) {
+
+            let message = "";
+            let code = 500;
+
+            if(typeof e.message !== "undefined")
+
+                message = e.message !== null ? e.message : message;
+
+            if(typeof e.code !== "undefined")
+
+                message = typeof e.code === "number" ? e.code : code;
+
+            throw new Exception(
+                "Configuration can't produce output: " +
+                "because of error: " + message,
+                code);
+
+        }
+
+    }
+
+    private static _defaultStartupConfiguration() : StartupOptions {
+
+        return {
+            configDirectory: "./config",
+            certDirectory: "./certificates",
+            configStructure : {
+                database: {
+                    sectionName: "db",
+                },
+                api: {
+                    sectionName: "api"
+                },
+                server: {
+                    sectionName: "server",
+                    portParamName: "port",
+                    SSLCertName: "server.cert",
+                    SSLKeyName: "server.key"
+                },
+                other: {
+                    sectionName: "other"
+                }
+            }
+        }
 
     }
 
@@ -20,13 +88,14 @@ export interface ConfigStructureOptions {
     database: DbConfigSchemaOptions;
     api: APIConfigSchemaOptions;
     server: ServerConfigSchemaOptions;
+    other: OtherConfigSchemaOptions
 }
 
 export interface ServerConfigSchemaOptions {
     sectionName: string;
-    portParamName: number;
-    tlsCertName: string;
-    tlsKeyName: string;
+    portParamName: string;
+    SSLCertName: string;
+    SSLKeyName: string;
 }
 
 export interface DbConfigSchemaOptions {
@@ -34,6 +103,10 @@ export interface DbConfigSchemaOptions {
 }
 
 export interface APIConfigSchemaOptions {
+    sectionName: string;
+}
+
+export interface OtherConfigSchemaOptions {
     sectionName: string;
 }
 
