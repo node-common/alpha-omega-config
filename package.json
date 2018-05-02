@@ -3,7 +3,7 @@
   "description": "Configurator library. Add this configurator to your project or framework and manage multiple configurations in better way",
   "repository": {},
   "license": "MIT",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Anton Repin <ar@xdire.io>",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
