@@ -1,0 +1,18 @@
+{
+  "db": {
+    "mongo": {
+      "host":"mongo-host",
+      "port": 27010,
+      "instance": "mongo-db-instance",
+      "user" : "user123",
+      "pass" : "userPass"
+    },
+    "mysql": {
+      "host":"mysql-host",
+      "port": 3309,
+      "instance": "mysql-db-instance",
+      "user" : "user123",
+      "pass" : "userPass"
+    }
+  }
+}

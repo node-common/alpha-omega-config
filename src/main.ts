@@ -6,6 +6,8 @@ export class Configuration {
 
     private config: LoadedConfiguration = null;
 
+    private startup: StartupOptions = null;
+
     constructor(o: StartupOptions) {
 
         this.set(o);
@@ -22,7 +24,9 @@ export class Configuration {
 
         const std = Configuration._defaultStartupConfiguration();
 
-        o = ConfigParser.mergeOptions(std, o);
+        o = ConfigParser.mergeOptions(std, o) as StartupOptions;
+
+        this.startup = o;
 
         try {
 
@@ -47,6 +51,12 @@ export class Configuration {
                 code);
 
         }
+
+    }
+
+    public _getStartupOptions() : StartupOptions {
+
+        return this.startup;
 
     }
 
@@ -79,9 +89,9 @@ export class Configuration {
 }
 
 export interface StartupOptions {
-    configDirectory: string;
-    certDirectory: string;
-    configStructure: ConfigStructureOptions;
+    configDirectory?: string;
+    certDirectory?: string;
+    configStructure?: ConfigStructureOptions;
 }
 
 export interface ConfigStructureOptions {
@@ -121,7 +131,6 @@ export interface ServerConfiguration {
     url: string;
     tlsCert: string;
     tlsKey: string;
-
 }
 
 export interface DatabaseConfiguration {
